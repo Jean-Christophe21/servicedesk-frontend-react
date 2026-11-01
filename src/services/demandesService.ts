@@ -5,8 +5,26 @@ import type {
     Demande,
     ModificationDemande,
     StatusOfDemande, TechnicianId
+    , DashboardInfos, employeId
 } from "../types/types.ts";
 //import getCurrentUser, {User} from "../auth/authStore.ts";
+
+type DemandesResponse = {
+    message: string;
+    data: Demande[];
+};
+
+type DashboardInfosResponse = {
+    data: DashboardInfos;
+};
+
+export async function getDashboardInfos(id: employeId): Promise<DashboardInfos> {
+    console.log("id de l'utilisateur: ", id);
+    const response: AxiosResponse<DashboardInfosResponse> =
+        await httpService.get('/dashboard/infos', {params: id});
+
+    return response.data.data;
+}
 
 export async function demandesService(): Promise<Demande[]>
 {
@@ -26,6 +44,13 @@ export async function demandesService(): Promise<Demande[]>
 //         return response.data;
 //     }
 // }
+
+export async function getUserAllDemandes(employeId: number){
+    const response: AxiosResponse<DemandesResponse> =
+        await httpService.get(`user/${employeId}/demandes/`);
+    console.log(response.data);
+    return response.data.data;
+}
 
 export async function getUserDemandesById(id: number){
         const response: AxiosResponse<Demande | { data: Demande }> =
@@ -51,10 +76,11 @@ export async function createDemande(demande: StoreDemande){
     return createdDemande;
 }
 
-export async function modifyDemande(demande: ModificationDemande){
-    const response: AxiosResponse<Demande> = await httpService.put('/demandes/', demande);  // format de la requête à revoir
-    console.log(response.data);
-    return response.data;
+export async function modifyDemande(id: number, demande: ModificationDemande){
+    const response: AxiosResponse<Demande | { data: Demande }> =
+        await httpService.put(`/demandes/${id}`, demande);
+
+    return "data" in response.data ? response.data.data : response.data;
 }
 
 
@@ -66,7 +92,8 @@ export async function modifyDemandeStatus(id:number, demande: StatusOfDemande){
 }
 
 export async function assignTechnicianToDemand(demandeId: number, technician: TechnicianId){
-    const response: AxiosResponse<Demande> = await httpService.put(`/demandes/${demandeId}/assign`, technician);  // format de la requête à revoir
-    console.log(response.data);
-    return response.data;
+    const response: AxiosResponse<Demande | { data: Demande }> =
+        await httpService.put(`/demandes/${demandeId}/assign`, technician);
+
+    return "data" in response.data ? response.data.data : response.data;
 }
