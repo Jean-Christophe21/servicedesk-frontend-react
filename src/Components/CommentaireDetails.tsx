@@ -76,9 +76,9 @@ export function CommentaireDetails({demandeId, commentaireId}: Props) {
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
                         {/*Détail du commentaire #{commentaire.id}*/}
                     </p>
-                    <h1 className="mt-2 text-8xl font-medium tracking-tight text-white">
+                    <h2 className="mt-2 text-8xl font-medium tracking-tight text-white!">
                          Commentaire :
-                    </h1>
+                    </h2>
                     <p>
                         {commentaire.content}
                     </p>
@@ -89,7 +89,7 @@ export function CommentaireDetails({demandeId, commentaireId}: Props) {
                         {commentaire.content}
                     </p>
                     <p className="mt-4 text-xs text-black/50">
-                        Créé le {commentaire.created_at}
+                        Créé le {formatDate(commentaire.created_at)}
                     </p>
                 </section>
 
@@ -109,7 +109,7 @@ export function CommentaireDetails({demandeId, commentaireId}: Props) {
                         onChange={(event) => setContent(event.target.value)}
                         rows={6}
                         required
-                        className="w-full resize-y border border-black bg-white px-3 py-2.5 text-black outline-none focus:bg-black focus:text-white"
+                        className="w-full resize-y border border-black bg-white px-3 py-2.5 text-black outline-none focus:text-black"
                     />
                     <div className="mt-4 flex flex-col gap-3 sm:flex-row">
                         <button

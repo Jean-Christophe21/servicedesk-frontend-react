@@ -56,6 +56,7 @@ export default function CommentsList({demandeId}: Props) {
                                 </span>
                                 <span className="text-xs">
                                     {formatDate(commentaire.created_at)}
+                                    {commentaire.modified && " · Modified"}
                                 </span>
                             </div>
                             <p className="mt-2 line-clamp-2 text-sm">
