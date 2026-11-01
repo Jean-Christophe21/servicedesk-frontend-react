@@ -36,7 +36,7 @@ export type StatusOfDemande = {
 }
 
 export type TechnicianId = {
-    technician_id: number,
+    technician_id: string,
 }
 
 export type Commentaire = {
@@ -56,4 +56,15 @@ export type StoreCommentaire = {
 
 export type CommentaireModification = {
     'content' :string,
+}
+
+export type employeId = {
+    employe_id: number,
+}
+
+export type DashboardInfos = {
+    total_: number,
+    total_open: number,
+    total_closed: number,
+    total_resolved: number,
 }
