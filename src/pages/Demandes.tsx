@@ -1,6 +1,6 @@
-import {getUserDemandesById} from "../services/demandesService.ts"
+import {getUserAllDemandes} from "../services/demandesService.ts"
 import DemandesTable from "../Components/Table.tsx";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {useEffect, useState} from "react";
 import type {Demande} from "../types/types.ts";
 
@@ -9,8 +9,8 @@ export default function Demandes() {
     const [demandes, setDemandesList] = useState<Demande[]>([]);
 
     const loadDemandes = () => {
-        getUserDemandesById(1).then((demande) => {
-            setDemandesList([demande]);
+        getUserAllDemandes( 8 ).then((demandes) => {
+            setDemandesList(demandes);
         });
     }
 
@@ -23,6 +23,10 @@ export default function Demandes() {
     const handleClick = (id: number) => {
         console.log("Clicked");
         navigate(`/demandes/${id}`);
+    }
+
+    const OnClickModifierButton = (id: number) => {
+        navigate(`/demandes/${id}/edit`);
     }
 
     return (
@@ -39,7 +43,7 @@ export default function Demandes() {
                     </div>
                 </div>
 
-                <DemandesTable demandes={demandes} OnClick={handleClick}/>
+                <DemandesTable demandes={demandes} OnClick={handleClick} OnClickModifierButton={OnClickModifierButton}/>
             </div>
         </div>
     );

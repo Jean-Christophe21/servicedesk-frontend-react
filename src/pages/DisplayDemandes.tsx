@@ -1,14 +1,14 @@
-import { demandeStatus, type Demande, type DemandeStatus } from "../types/types.ts";
+import {demandeStatus, type Demande, type DemandeStatus} from "../types/types.ts";
 import {useEffect, useState} from "react";
 import {getUserDemandesById, modifyDemandeStatus} from "../services/demandesService.ts";
-import {useParams} from "react-router-dom";
-import type { FormEvent } from "react";
+import {Link, useParams} from "react-router-dom";
+import type {FormEvent} from "react";
 import CommentsList from "../Components/CommentsList.tsx";
 import {formatDate} from "../utils/function.ts";
 
 
 export default function DisplayDemandes() {
-    const { id } = useParams<{ id: string }>();
+    const {id} = useParams<{ id: string }>();
 
     if (!id) {
         return <p className="p-8 text-black">Identifiant de demande manquant.</p>;
@@ -20,14 +20,14 @@ export default function DisplayDemandes() {
         return <p className="p-8 text-black">Identifiant de demande invalide.</p>;
     }
 
-    return <DemandeDetails idDemande={idDemande} />;
+    return <DemandeDetails idDemande={idDemande}/>;
 }
 
 type DemandeDetailsProps = {
     idDemande: number;
 };
 
-function DemandeDetails({ idDemande }: DemandeDetailsProps) {
+function DemandeDetails({idDemande}: DemandeDetailsProps) {
     const [demande, setDemande] = useState<Demande>();
     const [error, setError] = useState<string>();
     const [selectedStatus, setSelectedStatus] = useState<DemandeStatus>(demandeStatus.open);
@@ -89,7 +89,8 @@ function DemandeDetails({ idDemande }: DemandeDetailsProps) {
                             </h1>
                         </div>
 
-                        <span className="w-fit border border-white px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+                        <span
+                            className="w-fit border border-white px-3 py-1 text-xs font-semibold uppercase tracking-wide">
                             {demande.status}
                         </span>
                     </div>
@@ -138,6 +139,27 @@ function DemandeDetails({ idDemande }: DemandeDetailsProps) {
                     </div>
                 </footer>
 
+                <div className="border-t border-black px-6 py-5 sm:px-8">
+                    {
+                        demande.technicien_id ? (
+                            <Link
+                                to={`/demandes/${idDemande}/assign`}
+                                className="inline-block bg-black px-4 py-2.5 font-semibold text-white transition-colors hover:bg-white hover:text-black"
+                            >
+                                changer le technicien
+                            </Link>
+                        ) : (
+                            <Link
+                                to={`/demandes/${idDemande}/assign`}
+                                className="inline-block bg-black px-4 py-2.5 font-semibold text-white transition-colors hover:bg-white hover:text-black"
+                            >
+                                Assigner un technicien
+                            </Link>
+                        )
+                    }
+
+                </div>
+
                 <form
                     onSubmit={handleStatusSubmit}
                     className="border-t border-black bg-gray-50 px-6 py-6 sm:px-8"
@@ -174,7 +196,7 @@ function DemandeDetails({ idDemande }: DemandeDetailsProps) {
                     )}
                 </form>
 
-                <CommentsList demandeId={1} />
+                <CommentsList demandeId={1}/>
             </article>
         </main>
     );

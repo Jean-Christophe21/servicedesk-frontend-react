@@ -73,8 +73,8 @@ export default function DemandeForm() {
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
                         Nouvelle demande
                     </p>
-                    <h1 className="mt-2 text-2xl font-semibold tracking-tight">
-                        Créer une demande
+                    <h1 className="mt-2 text-2xl font-semibold tracking-tight text-white!">
+                        Quelle est votre demande ?
                     </h1>
                 </header>
 
@@ -122,7 +122,7 @@ export default function DemandeForm() {
                         disabled={isSubmitting}
                         className="w-full bg-black px-4 py-3 font-semibold text-white transition-colors hover:bg-black/80 disabled:cursor-not-allowed disabled:bg-black/50"
                     >
-                        {isSubmitting ? "Création..." : "Créer la demande"}
+                        {isSubmitting ? "Création..." : "Créer votre demande"}
                     </button>
                 </form>
             </section>
